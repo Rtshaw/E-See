@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import picamera
-from time import sleep
+import time
 
 camera = picamera.PiCamera()
 time.sleep(2) # Camera warm-up time
