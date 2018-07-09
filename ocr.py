@@ -81,8 +81,8 @@ def main():
   
 
 if __name__ == '__main__':
-
-  main()
-  content = getContent()
-  GOOGLE_TTS_URL = 'https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=zh-TW&q=' + content
-  getMP3(GOOGLE_TTS_URL)
+    takePhoto()
+    main()
+    content = getContent()
+    GOOGLE_TTS_URL = 'https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=zh-TW&q=' + content
+    getMP3(GOOGLE_TTS_URL)

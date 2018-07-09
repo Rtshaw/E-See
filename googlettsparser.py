@@ -8,7 +8,7 @@ def getContent():
     with open('output.txt', encoding = 'utf-8-sig') as f:
         content = f.read().strip()
         content = content.replace('________________', '')
-        #print(content)
+        # print(content)
         return content
 
 def getMP3(url):
@@ -27,7 +27,7 @@ def getMP3(url):
     r = s.get(mp3link)
         
     # download mp3 file
-    with open('./voice/sample2.mp3', 'wb') as f:
+    with open('./voice/sample0.mp3', 'wb') as f:
         f.write(r.content)
   
   
