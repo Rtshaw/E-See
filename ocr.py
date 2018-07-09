@@ -5,6 +5,7 @@ import os
 import io
 
 from googlettsparser import getContent, getMP3
+from takePhoto import takePhoto
 
 from apiclient import discovery
 from oauth2client import client
@@ -49,7 +50,7 @@ def main():
   service = discovery.build('drive', 'v3', http=http)
 
   # 包含文字內容的圖片檔案（png、jpg、bmp、gif、pdf）
-  imgfile = './image/sample2.jpg'
+  imgfile = './image/sample1.jpg'
 
   # 輸出辨識結果的文字檔案
   txtfile = 'output.txt'
