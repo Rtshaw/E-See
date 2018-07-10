@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 
 import os
+import sys
+import time
 import requests
-import pygame
+
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 def getContent():
     # 讀 output.txt
@@ -33,8 +37,6 @@ def getMP3(url):
         
 
 def playMP3():
-    # 初始化 mixer
-    pygame.mixer.init()
-    pygame.mixer.music.load('./voice/sample0.mp3')
-    pygame.mixer.music.play()
+    music_path = './voice/sample0.mp3'
+    os.system('mplayer %s' % music_path)
   
