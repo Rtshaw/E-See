@@ -4,6 +4,7 @@ from __future__ import print_function
 import httplib2
 import os
 import io
+import pygame
 
 from googlettsparser import getContent, getMP3, playMP3
 from takePhoto import takePhoto
@@ -86,4 +87,6 @@ if __name__ == '__main__':
     content = getContent()
     GOOGLE_TTS_URL = 'https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=zh-TW&q=' + content
     getMP3(GOOGLE_TTS_URL)
-    playMP3()
+    pygame.mixer.init()
+    pygame.mixer.music.load('./voice/sample0.mp3')
+    pygame.mixer.music.play()
