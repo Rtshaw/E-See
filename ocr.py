@@ -5,7 +5,7 @@ import httplib2
 import os
 import io
 
-from googlettsparser import getContent, getMP3
+from googlettsparser import getContent, getMP3, playMP3
 from takePhoto import takePhoto
 
 from apiclient import discovery
@@ -86,3 +86,4 @@ if __name__ == '__main__':
     content = getContent()
     GOOGLE_TTS_URL = 'https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=zh-TW&q=' + content
     getMP3(GOOGLE_TTS_URL)
+    playMP3()

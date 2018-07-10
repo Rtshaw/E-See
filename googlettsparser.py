@@ -2,6 +2,7 @@
 
 import os
 import requests
+import pygame
 
 def getContent():
     # 讀 output.txt
@@ -29,5 +30,11 @@ def getMP3(url):
     # download mp3 file
     with open('./voice/sample0.mp3', 'wb') as f:
         f.write(r.content)
-  
+        
+
+def playMP3():
+    # 初始化 mixer
+    pygame.mixer.init()
+    pygame.mixer.music.load('./voice/sample0.mp3')
+    pygame.mixer.music.play()
   
