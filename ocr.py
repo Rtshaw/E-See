@@ -51,7 +51,7 @@ def main():
   service = discovery.build('drive', 'v3', http=http)
 
   # 包含文字內容的圖片檔案（png、jpg、bmp、gif、pdf）
-  imgfile = './image/sample1.jpg'
+  imgfile = './image/sample0.jpg'
 
   # 輸出辨識結果的文字檔案
   txtfile = 'output.txt'
