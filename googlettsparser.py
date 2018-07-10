@@ -1,12 +1,9 @@
 # -*- coding: utf-8 -*-
 
 import os
-import sys
 import time
 import requests
 
-reload(sys)
-sys.setdefaultencoding('utf-8')
 
 def getContent():
     # 讀 output.txt
