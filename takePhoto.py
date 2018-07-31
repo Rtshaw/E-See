@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 
 import picamera
-import time
+from time import sleep
 
 
 def takePhoto():
     camera = picamera.PiCamera()
-    time.sleep(2) # Camera warm-up time
+    camera.start_preview()
+    sleep(5) # Camera warm-up time
     camera.capture('./image/sample0.jpg')
+    camera.stop_preview()
