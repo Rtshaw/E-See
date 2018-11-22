@@ -73,22 +73,22 @@ def objectdetection():
     ## classes '1' = spoon '2' = fork '3' = knife '4' = chopsticks
     for i in range(int(classes[0][0])):
         if classes[0][i] == 1 :
-            text = "你面前有隻湯匙"
+            text = "在你面前有隻湯匙"
             print("[INFO] %s" %text)
             with open('./result/audio/objoutcome.txt', 'w') as f:
                 f.write('%s，' %text)
         if classes[0][i] == 2 :
-            text = "你面前有隻叉子"
+            text = "在你面前有隻叉子"
             print("[INFO] %s" %text)
             with open('./result/audio/objoutcome.txt', 'w') as f:
                 f.write('%s，' %text)
         if classes[0][i] == 3 :
-            text = "你面前有隻刀子"
+            text = "在你面前有隻刀子"
             print("[INFO] %s" %text)
             with open('./result/audio/objoutcome.txt', 'w') as f:
                 f.write('%s，' %text)
         if classes[0][i] == 4 :
-            text = "你面前有雙筷子"
+            text = "在你面前有雙筷子"
             print("[INFO] %s" %text)
             with open('./result/audio/objoutcome.txt', 'w') as f:
                 f.write('%s，' %text)
@@ -113,17 +113,17 @@ def objectdetection():
                 f.write('%s，' %text)
 
         if y_value <= shape[0]/3:
-            text = "距離大約三個手掌的距離"
+            text = "距離大約三個手掌"
             print("[INFO] %s" %text)
             with open('./result/audio/objoutcome.txt', 'a+') as f:
                 f.write('%s。' %text)
         if shape[0]/3 < y_value < shape[0]*2/3:
-            text = "距離大約二個手掌的距離"
+            text = "距離大約二個手掌"
             print("[INFO] %s" %text)
             with open('./result/audio/objoutcome.txt', 'a+') as f:
                 f.write('%s。' %text)
         if y_value >= shape[0]*2/3:
-            text = "距離大約一個手掌的距離"
+            text = "距離大約一個手掌"
             print("[INFO] %s" %text)
             with open('./result/audio/objoutcome.txt', 'a+') as f:
                 f.write('%s。' %text)
