@@ -6,7 +6,7 @@ import os
 import io
 
 from googlettsparser import getContent, getMP3, playMP3
-from takePhoto import takePhoto
+#from takePhoto import takePhoto
 
 from apiclient import discovery
 from oauth2client import client
@@ -43,7 +43,7 @@ def get_credentials():
     print('憑證儲存於：' + credential_path)
   return credentials
 
-def main():
+def ocr():
 
   # 取得憑證、認證、建立 Google 雲端硬碟 API 服務物件
   credentials = get_credentials()
@@ -51,10 +51,10 @@ def main():
   service = discovery.build('drive', 'v3', http=http)
 
   # 包含文字內容的圖片檔案（png、jpg、bmp、gif、pdf）
-  imgfile = './image/sample0.jpg'
+  imgfile = './origin/takephoto.png'
 
   # 輸出辨識結果的文字檔案
-  txtfile = 'output.txt'
+  txtfile = './result/audio/outcome.txt'
 
   # 上傳成 Google 文件檔，讓 Google 雲端硬碟自動辨識文字
   mime = 'application/vnd.google-apps.document'
@@ -80,10 +80,4 @@ def main():
   
   
 
-if __name__ == '__main__':
-    takePhoto()
-    main()
-    content = getContent()
-    GOOGLE_TTS_URL = 'https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=zh-TW&q=' + content
-    getMP3(GOOGLE_TTS_URL)
-    playMP3()
+
