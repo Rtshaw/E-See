@@ -4,6 +4,7 @@ import os
 import speech_recognition
 import tempfile
 from gtts import gTTS
+from pydub import AudioSegment
 from pygame import mixer, display, time, event
 
 
@@ -64,16 +65,19 @@ def outcome(txtfile):
     with tempfile.NamedTemporaryFile(delete=True) as fp:
         tts = gTTS(text=word, lang='zh-TW')
         tts.save('./result/audio/outcome.mp3')
-        mixer.init()
-        mixer.music.load('./result/audio/outcome.mp3')
-        print("[INFO] Start play outcome.")
-        screen=display.set_mode([200,50])
-        mixer.music.play(0)
-        clock = time.Clock()
-        clock.tick(10)
-    while mixer.music.get_busy():
-        event.poll()
-        clock.tick(10)
+
+    sound = AudioSegment.from_mp3('./result/audio/outcome.mp3')
+    sound.export('./result/audio/outcome.wav', format='wav')
+        #mixer.init()
+        #mixer.music.load('./result/audio/outcome.wav')
+        #print("[INFO] Start play outcome.")
+        #screen=display.set_mode([200,50])
+        #mixer.music.play(0)
+        #clock = time.Clock()
+        #clock.tick(10)
+    #while mixer.music.get_busy():
+        #event.poll()
+        #clock.tick(10)
 
 #command()
 #outcome('../../E-See/tmp.txt')
