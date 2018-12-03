@@ -18,7 +18,7 @@ def objectdetection():
     PATH_TO_CKPT = os.path.join(CWD_PATH,MODEL_NAME,'frozen_inference_graph.pb')
     PATH_TO_LABELS = os.path.join(CWD_PATH,'training','labelmap.pbtxt')
     PATH_TO_IMAGE = os.path.join(CWD_PATH,IMAGE_NAME)
-    NUM_CLASSES = 4
+    NUM_CLASSES = 5
     label_map = label_map_util.load_labelmap(PATH_TO_LABELS)
     categories = label_map_util.convert_label_map_to_categories(label_map, max_num_classes=NUM_CLASSES, use_display_name=True)
     category_index = label_map_util.create_category_index(categories)
@@ -71,24 +71,34 @@ def objectdetection():
 
     ## ymin,xmin,ymax,xmax = boxes
     ## classes '1' = spoon '2' = fork '3' = knife '4' = chopsticks
+    
+    
+    #f = open('./result/audio/objoutcome.txt', 'r+')
+    #f.truncate
+    
     for i in range(int(classes[0][0])):
-        if classes[0][i] == 1 :
+        if classes[0][0] == 1 :
             text = "在你面前有隻湯匙"
             print("[INFO] %s" %text)
             with open('./result/audio/objoutcome.txt', 'w') as f:
                 f.write('%s，' %text)
-        if classes[0][i] == 2 :
+        if classes[0][0] == 2 :
             text = "在你面前有隻叉子"
             print("[INFO] %s" %text)
             with open('./result/audio/objoutcome.txt', 'w') as f:
                 f.write('%s，' %text)
-        if classes[0][i] == 3 :
+        if classes[0][0] == 3 :
             text = "在你面前有隻刀子"
             print("[INFO] %s" %text)
             with open('./result/audio/objoutcome.txt', 'w') as f:
                 f.write('%s，' %text)
-        if classes[0][i] == 4 :
+        if classes[0][0] == 4 :
             text = "在你面前有雙筷子"
+            print("[INFO] %s" %text)
+            with open('./result/audio/objoutcome.txt', 'w') as f:
+                f.write('%s，' %text)
+        if classes[0][0] == 5 :
+            text = "在你面前有個杯子"
             print("[INFO] %s" %text)
             with open('./result/audio/objoutcome.txt', 'w') as f:
                 f.write('%s，' %text)

@@ -290,7 +290,7 @@ class MainWindow(QWidget):
     
         self.timer4 = QTimer(self) #初始化一个定时器
         self.timer4.timeout.connect(self.switch) #计时结束调用operate()方法
-        self.timer4.start(30000) #设置计时间隔并启动
+        self.timer4.start(35000) #设置计时间隔并启动
     
     
         #self.show()
@@ -430,7 +430,7 @@ class MainWindow2(QWidget):
     
         self.timer5 = QTimer(self) #初始化一个定时器
         self.timer5.timeout.connect(self.switch) #计时结束调用operate()方法
-        self.timer5.start(17000) #设置计时间隔并启动
+        self.timer5.start(20000) #设置计时间隔并启动
     
     
     
