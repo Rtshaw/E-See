@@ -57,7 +57,7 @@ vis_util.visualize_boxes_and_labels_on_image_array(
     category_index,
     use_normalized_coordinates=True,
     line_thickness=8,
-    min_score_thresh=0.5)
+    min_score_thresh=0.8)
 
 shape = image.shape
 
