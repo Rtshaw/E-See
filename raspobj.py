@@ -10,7 +10,7 @@ from utils import label_map_util
 from utils import visualization_utils as vis_util
 
 MODEL_NAME = 'inference_graph'
-IMAGE_NAME = 'test2.jpg'
+IMAGE_NAME = './origin/takephoto.png'
 
 CWD_PATH = os.getcwd()
 PATH_TO_CKPT = os.path.join(CWD_PATH,MODEL_NAME,'frozen_inference_graph.pb')
