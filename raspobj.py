@@ -47,7 +47,8 @@ image_expanded = np.expand_dims(image, axis=0)
 (boxes, scores, classes, num) = sess.run(
     [detection_boxes, detection_scores, detection_classes, num_detections],
     feed_dict={image_tensor: image_expanded})
-
+print(scores)
+print(classes)
 vis_util.visualize_boxes_and_labels_on_image_array(
     image,
     np.squeeze(boxes),
@@ -70,35 +71,38 @@ cv2.line(image,(0,int(shape[0]*2/3)),(shape[1],int(shape[0]*2/3)),(255,0,150),4)
 
 ## ymin,xmin,ymax,xmax = boxes
 ## classes '1' = spoon '2' = fork '3' = knife '4' = chopsticks
-classes_count = Counter(classes[0][:5])
-for i in range(int(classes_count.most_common(1)[0][0])):
-    if classes[0][i] == 1 :
-	    print('這裡有個湯匙')
-    if classes[0][i] == 2 :
-	    print('這裡有個叉子')
-    if classes[0][i] == 3 :
-	    print('這裡有個刀子')
-    if classes[0][i] == 4 :
-	    print('這裡有個筷子')
-    if classes[0][i] == 5 :
-	    print('這裡有個杯子')
+##classes_count = Counter(classes[0][:5])
+##classes_count.most_common(1)[0][0]
+for i in range(5):
+    if(scores[0][i]>0.5):
+	    y_value = (shape[0]*boxes[0][i][2] + shape[0]*boxes[0][i][0])/2
+	    x_value = (shape[1]*boxes[0][i][3] + shape[1]*boxes[0][i][1])/2
+	    if i>=1 and classes[0][i] == classes[0][i-1] :
+		    break
+	    if classes[0][i] == 1 :
+	        print('這裡有個湯匙')
+	    if classes[0][i] == 2 :
+	        print('這裡有個叉子')
+	    if classes[0][i] == 3 :
+	        print('這裡有個刀子')
+	    if classes[0][i] == 4 :
+	        print('這裡有個筷子')
+	    if classes[0][i] == 5 :
+	        print('這裡有個杯子')
 		
-    y_value = (shape[0]*boxes[0][i][2] + shape[0]*boxes[0][i][0])/2
-    x_value = (shape[1]*boxes[0][i][3] + shape[1]*boxes[0][i][1])/2
-	
-    if x_value <= shape[1]/3:
-	    print('在你的左手邊')
-    if shape[1]/3 < x_value < shape[1]*2/3:
-	    print('在你的正中間')
-    if x_value >= shape[1]*2/3:
-	    print('在你的右手邊')
+	    if x_value <= shape[1]/3:
+	        print('在你的左手邊')
+	    if shape[1]/3 < x_value < shape[1]*2/3:
+	        print('在你的正中間')
+	    if x_value >= shape[1]*2/3:
+	        print('在你的右手邊')
 
-    if y_value <= shape[0]/3:
-	    print('距離大約三個手掌的距離')
-    if shape[0]/3 < y_value < shape[0]*2/3:
-	    print('距離大約二個手掌的距離')
-    if y_value >= shape[0]*2/3:
-	    print('距離大約一個手掌的距離')    
+	    if y_value <= shape[0]/3:
+	        print('距離大約三個手掌的距離')
+	    if shape[0]/3 < y_value < shape[0]*2/3:
+	        print('距離大約二個手掌的距離')
+	    if y_value >= shape[0]*2/3:
+	        print('距離大約一個手掌的距離')    
     
 	
 cv2.imshow('Object detector', image)
