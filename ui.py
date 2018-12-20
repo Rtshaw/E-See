@@ -27,18 +27,22 @@ class AudioUi(QWidget):
         self.wavplay()
     
     def initUI(self):
-        self.setWindowTitle("AudioUi")
+        self.setWindowTitle("ModeChoose")
         
         self.timer = QTimer(self) #初始化一个定时器
-        self.timer.timeout.connect(self.switch) #计时结束调用operate()方法
-        self.timer.start(2000) #设置计时间隔并启动
+        self.timer.timeout.connect(self.switch) #計時結束調用switch()方法
+        self.timer.start(3600) #設置計時間隔並啟動
         
         layout = QtWidgets.QGridLayout()
         
-        self.resize(250, 150)
+        self.resize(640, 360)
         self.move(300, 300)
+        
         self.text = QLabel("請選擇模式", self)
-        self.text.setGeometry(90, 50, 150 ,30)
+        #self.text.setFont(QFont("Roman times", 24, QFont.Bold))
+        self.setFont(QFont("Roman times", 24))
+        self.text.setGeometry(260, 160, 150 ,30)
+        
         
         #self.button = QtWidgets.QPushButton('Next')
         
@@ -47,6 +51,7 @@ class AudioUi(QWidget):
         #layout.addWidget(self.button)
         
         self.setLayout(layout)
+        #self.wavplay()
     
         #self.show()
     
@@ -55,7 +60,7 @@ class AudioUi(QWidget):
         self.timer.stop()
 
     def wavplay(self):
-        self.sound = QSound('./origin/choosemode.wav')
+        self.sound = QSound('./origin/echoosemode.wav')
         self.sound.play()
 
 
@@ -85,12 +90,12 @@ class CommandUi(QWidget):
         
         self.timer2 = QTimer(self) #初始化一个定时器
         self.timer2.timeout.connect(self.wavplay) #计时结束调用operate()方法
-        self.timer2.start(1000) #设置计时间隔并启动
+        self.timer2.start(500) #设置计时间隔并启动
     
     
 
     def initUI(self):
-        self.setWindowTitle("CommandUi")
+        self.setWindowTitle("Command Time")
         
         
         layout = QtWidgets.QGridLayout()
@@ -103,7 +108,7 @@ class CommandUi(QWidget):
         
         self.timer3 = QTimer(self) #初始化一个定时器
         self.timer3.timeout.connect(self.command) #计时结束调用operate()方法
-        self.timer3.start(2000) #设置计时间隔并启动
+        self.timer3.start(1495) #设置计时间隔并启动
         
         #self.button2 = QtWidgets.QPushButton('Next')
         #self.button2.clicked.connect(self.switch)
@@ -114,11 +119,11 @@ class CommandUi(QWidget):
         
         self.setLayout(layout)
         
-        self.resize(250, 150)
+        self.resize(640, 360)
         self.move(300, 300)
         pic = QPixmap('./origin/volume.png')
         self.lb = QLabel(self)
-        self.lb.setGeometry(50, 50, 150, 30)
+        self.lb.setGeometry(255, 130, 180, 100)
         self.lb.setPixmap(pic)
 
 
@@ -165,6 +170,50 @@ class CommandUi(QWidget):
         return text
 
 
+class empty(QWidget):
+    switch_window = QtCore.pyqtSignal()
+    
+    def __init__(self):
+        super().__init__()
+        self.initUI()
+    
+    def initUI(self):
+        self.setWindowTitle("Command Time")
+        
+        layout = QtWidgets.QGridLayout()
+        
+        self.label = QtWidgets.QLabel()
+        layout.addWidget(self.label)
+        
+        #self.button = QtWidgets.QPushButton('Command')
+        #self.button.clicked.connect(self.command)
+        
+        self.timere = QTimer(self) #初始化一个定时器
+        self.timere.timeout.connect(self.end) #计时结束调用operate()方法
+        self.timere.start(200) #设置计时间隔并启动
+        
+
+        
+        self.setLayout(layout)
+        
+        self.resize(640, 360)
+        self.move(300, 300)
+        pic = QPixmap('./origin/volume.png')
+        self.lb = QLabel(self)
+        self.lb.setGeometry(255, 130, 180, 100)
+        self.lb.setPixmap(pic)
+
+    def end(self):
+        self.switch_window.emit()
+        self.timere.stop()
+
+    def rc(self):
+        with open('./result/audio/command.txt', 'r') as f:
+            c = f.read().strip()
+        #print(self.c)
+        
+        return c
+
 
 #self.show()
 
@@ -199,6 +248,7 @@ class FrameThread(QThread):
                 while True:
                     ret, frame = self.device.read()
                     height, width, bytesPerComponent = frame.shape
+                    #print(height, width)
                     bytesPerLine = bytesPerComponent * width
                     # 變換彩色空間順序
                     cv2.cvtColor(frame, cv2.COLOR_BGR2RGB, frame)
@@ -257,7 +307,7 @@ class MainWindow(QWidget):
         self.initUI()
     
     def initUI(self):
-        hbox = QHBoxLayout(self)
+        #hbox = QHBoxLayout(self)
         
         lb1 = QLabel(self)
         lb2 = QLabel(self)
@@ -277,21 +327,20 @@ class MainWindow(QWidget):
         self.frameThread2 = FrameThread(1,lb2)
         self.frameThread2.start()
         
-        hbox.addWidget(lb1)
-        hbox.addWidget(lb2)
-        hbox.addWidget(btn)
-        hbox.addWidget(btn2)
+        #hbox.addWidget(lb1)
+        #hbox.addWidget(lb2)
+        #hbox.addWidget(btn)
+        #hbox.addWidget(btn2)
         
         
-        self.setLayout(hbox)
+        #self.setLayout(hbox)
         self.move(300, 300)
         self.setWindowTitle('E-See')
     
     
-        self.timer4 = QTimer(self) #初始化一个定时器
-        self.timer4.timeout.connect(self.switch) #计时结束调用operate()方法
-        self.timer4.start(35000) #设置计时间隔并启动
-    
+        self.timer4 = QTimer(self) # 初始化一個定時器
+        self.timer4.timeout.connect(self.switch) # 計時結束調用operate()方法
+        self.timer4.start(50000) # 設置計時間隔並啟動
     
         #self.show()
     
@@ -398,7 +447,7 @@ class MainWindow2(QWidget):
         self.initUI()
     
     def initUI(self):
-        hbox = QHBoxLayout(self)
+        #hbox = QHBoxLayout(self)
         
         lb1 = QLabel(self)
         lb2 = QLabel(self)
@@ -408,29 +457,29 @@ class MainWindow2(QWidget):
         btn.move(800, 530)
         btn.clicked.connect(self.paizhao)
         
-        #btn2 = QPushButton(self)
-        #btn2.setText("Next")
-        #btn2.move(800, 500)
-        #btn2.clicked.connect(self.switch)
+        btn2 = QPushButton(self)
+        btn2.setText("Next")
+        btn2.move(800, 500)
+        btn2.clicked.connect(self.switch)
         
         self.frameThread = FrameThread2(0,lb1)
         self.frameThread.start()
         self.frameThread2 = FrameThread2(1,lb2)
         self.frameThread2.start()
         
-        hbox.addWidget(lb1)
-        hbox.addWidget(lb2)
-        hbox.addWidget(btn)
+        #hbox.addWidget(lb1)
+        #hbox.addWidget(lb2)
+        #hbox.addWidget(btn)
         #hbox.addWidget(btn2)
         
-        self.setLayout(hbox)
+        #self.setLayout(hbox)
         self.move(300, 300)
         self.setWindowTitle('E-See')
     
     
         self.timer5 = QTimer(self) #初始化一个定时器
         self.timer5.timeout.connect(self.switch) #计时结束调用operate()方法
-        self.timer5.start(20000) #设置计时间隔并启动
+        self.timer5.start(50000) #设置计时间隔并启动
     
     
     
@@ -467,31 +516,35 @@ class OutComeUi(QWidget):
         self.wavplay()
     
     def initUI(self):
-        self.setWindowTitle("OutComeUI")
+        self.setWindowTitle("OutCome Interface")
         
         layout = QtWidgets.QGridLayout()
         
         self.label = QtWidgets.QLabel()
         layout.addWidget(self.label)
         
-        self.button = QtWidgets.QPushButton('Return')
+        self.button = QtWidgets.QPushButton('Close')
+        self.button2 = QtWidgets.QPushButton('Return')
         self.button.clicked.connect(self.close)
+        self.button2.clicked.connect(self.switch)
+        #self.button2.move(300, 300)
         
         layout.addWidget(self.button)
+        #layout.addWidget(self.button2)
         
         self.setLayout(layout)
         
-        self.resize(250, 150)
+        self.resize(640, 360)
         self.move(300, 300)
         pic = QPixmap('./origin/volume.png')
         self.lb = QLabel(self)
-        self.lb.setGeometry(50, 50, 150, 30)
+        self.lb.setGeometry(255, 130, 180, 100)
         self.lb.setPixmap(pic)
     
     
         self.timer6 = QTimer(self) #初始化一个定时器
         self.timer6.timeout.connect(self.switch) #计时结束调用operate()方法
-        self.timer6.start(40000) #设置计时间隔并启动
+        self.timer6.start(54000) #设置计时间隔并启动
     
     
     def switch(self):
@@ -516,11 +569,18 @@ class Controller:
     def show_command(self):
         self.window = CommandUi()
         #self.c = self.window.command()
-        self.window.switch_window.connect(self.show_camera)
+        self.window.switch_window.connect(self.show_empty_page)
         self.audio.close()
         self.window.show()
-
     
+    def show_empty_page(self):
+        self.page = empty()
+        self.c = self.page.rc()
+        self.page.switch_window.connect(self.show_camera)
+        self.window.close()
+        self.page.show()
+    
+
     def show_camera(self):
         self.camera = MainWindow()
         self.cameraobj = MainWindow2()
@@ -532,32 +592,47 @@ class Controller:
             #print(self.c)
         
         if self.c == "閱讀" or self.c == "閱讀模式":
-            self.window.close()
+            self.page.close()
             self.camera.show()
         elif self.c == "用餐" or self.c == "用餐模式":
-            self.window.close()
+            self.page.close()
             self.cameraobj.show()
         elif self.c == "沒事" or self.c == "結束":
-            self.window.close()
+            self.page.close()
             self.camera.close()
+        elif self.c == "等等":
+            self.page.close()
+            self.camera.close()
+            self.show_audio()
         else:
-            self.window.close()
-            self.camera.close()
-        
+            self.timerclose = QTimer()
+            self.timerclose.timeout.connect(self.closed)
+            self.timerclose.start(2800)
+            self.sound = QSound('./origin/idonknow.wav')
+            self.sound.play()
+
         self.camera.switch_window.connect(self.show_outcome)
         self.cameraobj.switch_window.connect(self.show_outcome)
+    
+    def closed(self):
+        self.page.close()
+        self.camera.close()
+        self.cameraobj.close()
+        self.timerclose.stop()
+        self.show_audio()
 
     def show_outcome(self):
         self.output = OutComeUi()
-        self.output.switch_window.connect(self.show_return)
         self.camera.close()
         self.cameraobj.close()
         self.output.show()
+        self.output.switch_window.connect(self.show_audio)
 
     def show_return(self):
         self.returnb = AudioUi()
         self.output.close()
         self.returnb.show()
+
 
 
 
